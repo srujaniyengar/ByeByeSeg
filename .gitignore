@@ -1,0 +1,48 @@
+# IGNORE: Compiled binaries  
+*.o  
+*.out  
+*.a  
+*.so  
+*.dll  
+*.exe  
+
+# IGNORE: Build directories  
+/build/  
+/bin/  
+/obj/  
+
+# IGNORE: Dependency files  
+*.d  
+*.dep  
+
+# IGNORE: Logs and temporary files  
+*.log  
+*.tmp  
+*.swp  
+*.swo  
+*.bak  
+
+# IGNORE: Editor and IDE files  
+.vscode/  
+.idea/  
+*.code-workspace  
+*.sublime-workspace  
+
+# IGNORE: Generated documentation  
+/docs/generated/  
+
+# IGNORE: Test artifacts  
+/tests/*.out  
+/tests/*.log  
+
+# IGNORE: Makefile artifacts  
+Makefile.in  
+Makefile.am  
+config.h  
+config.log  
+config.status  
+autom4te.cache/  
+CMakeCache.txt  
+CMakeFiles/  
+cmake_install.cmake  
+
