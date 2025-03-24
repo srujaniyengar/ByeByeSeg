@@ -1,4 +1,4 @@
-#include "safealloc.h"
+#include "../include/safealloc.h"
 #include <stdio.h>
 
 int main() {
