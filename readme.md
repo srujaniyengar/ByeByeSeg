@@ -4,7 +4,11 @@ A Custom Memory Allocator with a Built-in Borrow Checker for C/C++
 
 **Features**
 
-✅ Custom allocator using sbrk()✅ Borrow-checker-inspired memory tracking✅ Safe malloc and free alternatives✅ Explicit memory ownership rules✅ Prevents use-after-free & double-free errors
+✅ Custom allocator using sbrk()
+✅ Borrow-checker-inspired memory tracking
+✅ Safe malloc and free alternatives
+✅ Explicit memory ownership rules
+✅ Prevents use-after-free & double-free errors
 
 **Usage**
 
