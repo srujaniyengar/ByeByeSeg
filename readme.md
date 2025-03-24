@@ -8,8 +8,14 @@ A Custom Memory Allocator with a Built-in Borrow Checker for C/C++
 
 **Usage**
 
-```gcc -o example example.c safealloc.c
+```
+gcc -o example example.c safealloc.c
 ./example 
+```
+**OR**
+```
+make
+./example
 ```
 **API**
 ```
