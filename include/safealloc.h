@@ -16,8 +16,8 @@ typedef struct Block{
   size_t size;
   bool is_free;
   struct Block*next;
-}Block;
-
+} Block;
+// sbrk-based allocation
 #define BLOCK_SIZE sizeof(Block)
 Block*find_free(size_t size);
 Block*req_spc(size_t size);
@@ -27,4 +27,10 @@ void*alloc(size_t size);
 void*free_alloc(void *ptr);
 void*safe_realloc(size_t size, void* ptr);
 void*re_alloc(size_t size,void*ptr);
+
+// MMAP-based allocation
+void* mmap_alloc(size_t size);
+void* safe_mmap_alloc(size_t size);
+void mmap_free(void* ptr, size_t size);
+
 #endif  
