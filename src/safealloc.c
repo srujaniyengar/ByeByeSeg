@@ -1,8 +1,9 @@
 #define _GNU_SOURCE
 #include "safealloc.h"
 
-static Block *head = NULL;
+static Block *head = NULL
 
+// sbrk: find free
 Block *find_free(size_t size) {
     Block *curr = head;
     while (curr) {
@@ -14,6 +15,7 @@ Block *find_free(size_t size) {
     return NULL;
 }
 
+// sbrk: request space
 Block *req_spc(size_t size) {
     Block *block;
     block = (Block *)sbrk(0);
@@ -27,6 +29,7 @@ Block *req_spc(size_t size) {
     return block;
 }
 
+// sbrk: allocate
 void *alloc(size_t size) {
     if (size == 0)
         return NULL;
@@ -49,6 +52,7 @@ void *alloc(size_t size) {
     return (void *)(block + 1);
 }
 
+// sbrk: safe allocate
 void *safe_alloc(size_t size) {
     void *ptr = alloc(size);
     if (!ptr) {
@@ -58,6 +62,7 @@ void *safe_alloc(size_t size) {
     return ptr;
 }
 
+// sbrk: free
 void *free_alloc(void *ptr) {
     if (ptr == NULL)
         return NULL;
@@ -66,6 +71,7 @@ void *free_alloc(void *ptr) {
     return NULL;
 }
 
+// sbrk: realloc
 void *re_alloc(size_t size, void *ptr) {
     if (ptr == NULL)
         return alloc(size);
@@ -80,6 +86,7 @@ void *re_alloc(size_t size, void *ptr) {
     return new_ptr;
 }
 
+// sbrk: safe realloc
 void *safe_realloc(size_t size, void *ptr) {
     void *new_ptr = re_alloc(size, ptr);
     if (!new_ptr) {
@@ -89,12 +96,10 @@ void *safe_realloc(size_t size, void *ptr) {
     return new_ptr;
 }
 
-// === MMAP Allocator ===
-
+// mmap: allocate
 void* mmap_alloc(size_t size) {
     if (size == 0)
         return NULL;
-    // Align size to PAGE_SIZE
     size_t total_size = ((size - 1) / PAGE_SIZE + 1) * PAGE_SIZE;
     void* ptr = mmap(NULL, total_size, PROT_READ | PROT_WRITE,
         MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
@@ -103,6 +108,7 @@ void* mmap_alloc(size_t size) {
     return ptr;
 }
 
+// mmap: safe allocate
 void* safe_mmap_alloc(size_t size) {
     void* ptr = mmap_alloc(size);
     if (!ptr) {
@@ -112,6 +118,7 @@ void* safe_mmap_alloc(size_t size) {
     return ptr;
 }
 
+// mmap: free
 void mmap_free(void* ptr, size_t size) {
     if (!ptr || size == 0)
         return;
