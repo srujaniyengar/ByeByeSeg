@@ -89,3 +89,34 @@ void *safe_realloc(size_t size, void *ptr) {
     return new_ptr;
 }
 
+// === MMAP Allocator ===
+
+void* mmap_alloc(size_t size) {
+    if (size == 0)
+        return NULL;
+    // Align size to PAGE_SIZE
+    size_t total_size = ((size - 1) / PAGE_SIZE + 1) * PAGE_SIZE;
+    void* ptr = mmap(NULL, total_size, PROT_READ | PROT_WRITE,
+        MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+    if (ptr == MAP_FAILED)
+        return NULL;
+    return ptr;
+}
+
+void* safe_mmap_alloc(size_t size) {
+    void* ptr = mmap_alloc(size);
+    if (!ptr) {
+        fprintf(stderr, "safe_mmap_alloc: mmap allocation of %zu bytes failed\n", size);
+        exit(EXIT_FAILURE);
+    }
+    return ptr;
+}
+
+void mmap_free(void* ptr, size_t size) {
+    if (!ptr || size == 0)
+        return;
+    size_t total_size = ((size - 1) / PAGE_SIZE + 1) * PAGE_SIZE;
+    if (munmap(ptr, total_size) == -1) {
+        perror("mmap_free: munmap failed");
+    }
+}
